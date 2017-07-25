@@ -2,17 +2,13 @@ node {
 
     parameters
     {
-    string(name:'BackendRevision', defaultValue:'master', description: 'Revision number to be included into docker image.'),
-    /*BackendRevision  take the docker image from commit  and stan up in there*/
-
-    string(name:'BackendBranch', defaultValue:'none')
-    /*BackendBranch declarate the branch where the BackendRevision will be take the docker image*/
-
+    string(name:'BackendRevision', defaultValue:'master', description: 'BackendRevision is the commit which docker will build the image.'),
+    string(name:'BackendBranch', defaultValue:'BackendBranch will be used for docker tagging')
     }
     stages{
 
     stage('Build image')
-    /*In this stage use the parameters for built the docker image in the direccion established*/
+    /*In this stage, docker builds the image in the path stablished.*/
     {
         sh "/usr/bin/docker build -t backend-practica --build-arg BACKEND_REVISION=${params.BackendRevision} . "
         echo "current git revision ${params.BackendRevision}"
