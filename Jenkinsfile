@@ -2,7 +2,7 @@ node {
 
     parameters
     {
-    string(name:'BackendRevision', defaultValue:'master', description: 'BackendRevision is the commit which docker will build the image.'),
+    string(name:'BackendRevision', defaultValue:'master', description: 'BackendRevision is the commit which docker will build the image.')
     string(name:'BackendBranch', defaultValue:'BackendBranch will be used for docker tagging')
     }
     stages{
