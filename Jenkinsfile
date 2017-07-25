@@ -3,7 +3,7 @@ node {
     parameters
     {
     string(name:'BackendRevision', defaultValue:'master', description: 'BackendRevision is the commit which docker will build the image.')
-    string(name:'BackendBranch', defaultValue:'BackendBranch will be used for docker tagging')
+    string(name:'BackendBranch', description:'BackendBranch will be used for docker tagging')
     }
 
     stage('Checkout')
@@ -35,8 +35,8 @@ node {
 
         withCredentials([usernamePassword(credentialsId: '48253a45-d82c-43c8-b39e-031c511bc475', passwordVariable: 'DOCKER_REGISTRY_PASS', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
             sh "docker login --username=${DOCKER_REGISTRY_USER} --password=${DOCKER_REGISTRY_PASS}"
-            sh 'docker tag backend-practica dinocloud/backend-practica:$(echo $params.BackendBranch   | sed -e "s|origin/||g")'
-            sh 'docker push dinocloud/backend-practica:$(echo $params.BackendBranch   | sed -e "s|origin/||g")'
+            sh 'docker tag backend-practica dinocloud/backend-practica:$(echo ${params.BackendBranch}   | sed -e "s|origin/||g")'
+            sh 'docker push dinocloud/backend-practica:$(echo ${params.BackendBranch}   | sed -e "s|origin/||g")'
         }
 
     }
