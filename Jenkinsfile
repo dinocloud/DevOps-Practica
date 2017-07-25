@@ -6,6 +6,13 @@ node {
     string(name:'BackendBranch', defaultValue:'BackendBranch will be used for docker tagging')
     }
 
+    stage('Checkout')
+    {
+        checkout([$class: 'GitSCM', branches: [[name: '*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/dinocloud/DevOps-Practica']]])
+        echo "current git revision ${params.BackendRevision}"
+        echo "current branch revision ${params.BackendBranch}"
+    }
+
     stage('Build image')
     /*In this stage, docker builds the image in the path stablished.*/
     {
@@ -34,6 +41,6 @@ node {
 
     }
 
-    
+
 }
 
