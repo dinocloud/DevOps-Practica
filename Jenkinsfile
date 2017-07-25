@@ -5,7 +5,6 @@ node {
     string(name:'BackendRevision', defaultValue:'master', description: 'BackendRevision is the commit which docker will build the image.')
     string(name:'BackendBranch', defaultValue:'BackendBranch will be used for docker tagging')
     }
-    stages{
 
     stage('Build image')
     /*In this stage, docker builds the image in the path stablished.*/
@@ -35,6 +34,6 @@ node {
 
     }
 
-    }
+    
 }
 
