@@ -1,27 +1,25 @@
 node {
-    def app
 
     parameters
     {
-    string(name:'BackendRevision', defaultValue:'none', description: 'Revision number to be included into docker image.'),
+    string(name:'BackendRevision', defaultValue:'master', description: 'Revision number to be included into docker image.'),
+    /*BackendRevision  take the docker image from commit  and stan up in there*/
+
     string(name:'BackendBranch', defaultValue:'none')
+    /*BackendBranch declarate the branch where the BackendRevision will be take the docker image*/
+
     }
     stages{
-    stage('Checkout')
-    {
-        checkout([$class: 'GitSCM', branches: [[name: '*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/dinocloud/DevOps-Practica']]])
-        echo "current git revision ${params.BackendRevision}"
-        echo "current branch revision ${params.BackendBranch}"
-    }
 
     stage('Build image')
+    /*In this stage use the parameters for built the docker image in the direccion established*/
     {
         sh "/usr/bin/docker build -t backend-practica --build-arg BACKEND_REVISION=${params.BackendRevision} . "
+        echo "current git revision ${params.BackendRevision}"
     }
 
     stage('Test image') {
-        echo "credential ${env.DOCKER_REGISTRY_CREDENTIAL}"
-        //app.inside {
+         //app.inside {
         //    sh 'echo "Tests passed"'
         //}
     }
